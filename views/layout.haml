@@ -1,0 +1,15 @@
+!!! 5
+%html
+  %head
+    %title JEXP!
+  
+  %body
+    %form{ method: 'post', action: '/regexps' }
+      %label Teststräng
+      %textarea{ name: 'test_string' }
+      %br
+      %label Regexp
+      %input{ type: 'text', name: 'pattern' }
+      %input{ type: 'submit', name: 'save' }
+    %footer
+      %h2 old ones
