@@ -33,12 +33,10 @@ app.post '/regexps', (req, res) ->
   
   error = false # poor mans error handling :)
   regexp.save (err) ->
-    error = true
-
-  if error
-    res.json {message: 'errorz'}
-  else
-    res.json regexp
+    if err
+      res.json {message: 'errorz'}
+    else
+      res.json regexp
 
 app.get '/regexps/:id', (req, res) ->
   regexp = RegExp.findById req.params.id, (err, docs) ->

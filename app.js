@@ -25,12 +25,11 @@ app.post('/regexps', function(req, res) {
     test_string: req.body.test_string
   });
   error = false;
-  regexp.save(function(err) {
-    return (error = true);
+  return regexp.save(function(err) {
+    return err ? res.json({
+      message: 'errorz'
+    }) : res.json(regexp);
   });
-  return error ? res.json({
-    message: 'errorz'
-  }) : res.json(regexp);
 });
 app.get('/regexps/:id', function(req, res) {
   var regexp;
