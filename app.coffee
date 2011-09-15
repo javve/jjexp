@@ -30,8 +30,15 @@ app.post '/regexps', (req, res) ->
   regexp = new RegExp
     pattern: req.body.pattern
     test_string: req.body.test_string
+  
+  error = false # poor mans error handling :)
+  regexp.save (err) ->
+    error = true
 
-  res.redirect "/regexps/#{regexp.id}"
+  if error
+    res.json {message: 'errorz'}
+  else
+    res.json regexp
 
 app.get '/regexps/:id', (req, res) ->
   regexp = RegExp.findById req.params.id, (err, docs) ->
@@ -39,6 +46,5 @@ app.get '/regexps/:id', (req, res) ->
       res.json {message: 'errorz'}
     else
       res.json docs
-
 
 app.listen 3002

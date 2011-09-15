@@ -19,12 +19,18 @@ app.get('/', function(req, res) {
   return res.render('index.haml');
 });
 app.post('/regexps', function(req, res) {
-  var regexp;
+  var error, regexp;
   regexp = new RegExp({
     pattern: req.body.pattern,
     test_string: req.body.test_string
   });
-  return res.redirect("/regexps/" + (regexp.id));
+  error = false;
+  regexp.save(function(err) {
+    return (error = true);
+  });
+  return error ? res.json({
+    message: 'errorz'
+  }) : res.json(regexp);
 });
 app.get('/regexps/:id', function(req, res) {
   var regexp;
