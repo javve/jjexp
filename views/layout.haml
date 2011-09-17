@@ -2,6 +2,8 @@
 %html
   %head
     %title JEXP!
+    %script{ src: 'jquery.min.js' }
+    %script{ src: 'app.js' }
   
   %body
     %form{ method: 'post', action: '/regexps' }
@@ -10,6 +12,10 @@
       %br
       %label Regexp
       %input{ type: 'text', name: 'pattern' }
+      %input{ type: 'text', name: 'title' }
       %input{ type: 'submit', name: 'save' }
     %footer
       %h2 old ones
+      %ul
+        - each doc in docs
+          %li= doc.pattern
